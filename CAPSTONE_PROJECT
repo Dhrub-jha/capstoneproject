@@ -1,0 +1,41 @@
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('HotelBooking Datasets.csv')
+
+# Display the first few rows of the dataset
+print("First few rows of the dataset:")
+print(df.head())
+
+# Summary statistics
+print("\nSummary statistics:")
+summary_stats = df.describe()
+print(summary_stats)
+
+# Set the aesthetic style of the plots
+sns.set(style="whitegrid")
+
+# Create histograms for numerical columns
+numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns
+df[numerical_columns].hist(bins=28, figsize=(28, 10), layout=(2, len(numerical_columns)//2))
+plt.suptitle('Histograms of Numerical Columns')
+plt.show()
+
+# Create box plots for numerical columns
+plt.figure(figsize=(28, 10))
+sns.boxplot(data=df[numerical_columns])
+plt.xticks(rotation=90)
+plt.title('Box Plots of Numerical Columns')
+plt.show()
+
+# Calculate skewness and kurtosis
+print("\nSkewness and Kurtosis:")
+skewness = df[numerical_columns].skew()
+kurtosis = df[numerical_columns].kurtosis()
+
+# Display skewness and kurtosis
+print(f"Skewness:\n{skewness}")
+print(f"Kurtosis:\n{kurtosis}")
